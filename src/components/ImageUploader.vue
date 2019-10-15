@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import resizeBase64Img from '@/helpers/resizeBase64Img'
 
 export default {
   props: {
@@ -23,13 +22,15 @@ export default {
       this.$refs.inputFile.click()
     },
     addFile (e) {
+      let newFiles = []
+      let cnt = 0
       for (let i = 0; i < e.target.files.length; i++) {
         const reader = new FileReader()
         reader.onload = f => {
           // noinspection JSUnresolvedVariable
-          resizeBase64Img(f.target.result, 60, 60).then(src => {
-            this.$store.dispatch('files/addNewFile', { location: this.location, src })
-          })
+          newFiles.push({ location: this.location, src: f.target.result })
+          cnt++
+          if (cnt === e.target.files.length) this.$store.dispatch('files/add', newFiles)
         }
         reader.readAsDataURL(e.target.files[i])
       }

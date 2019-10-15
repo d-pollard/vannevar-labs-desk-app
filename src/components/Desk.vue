@@ -1,42 +1,22 @@
 <template>
   <div class="desk">
-    <div class="outbox">
-      <ImageUploader location="outbox" />
-      <img class="box-image" v-for="(i, n) in outbox" :src="i.src" :key="`outboxImage${n}`" alt="outbox image" />
-    </div>
-    <div class="inbox">
-      <ImageUploader location="inbox" />
-      <img class="box-image" v-for="(i, n) in inbox" :src="i.src" :key="`inboxImage${n}`" alt="inbox image" />
-    </div>
-    <div>
-      sizeof file {{JSON.stringify(files).length}} bytes
-    </div>
+    <DeskBox type="in"/>
+    <DeskBox type="out" />
   </div>
 </template>
 
 <script>
 
-import ImageUploader from '@/components/ImageUploader'
+import DeskBox from '@/components/DeskBox'
 export default {
   name: 'Desk',
-  components: { ImageUploader },
-  computed: {
-    files () {
-      return this.$store.state.files.list
-    },
-    outbox () {
-      return this.files.filter(({ location }) => location === 'outbox')
-    },
-    inbox () {
-      return this.files.filter(({ location }) => location === 'inbox')
-    }
-  }
+  components: { DeskBox }
 }
 </script>
 
 <style scoped>
-  .box-image {
-    width: 60px;
-    height: 60px;
+  .desk {
+    border: 1px solid orangered;
+    height: 60vh;
   }
 </style>

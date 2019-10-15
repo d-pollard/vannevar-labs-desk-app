@@ -9,6 +9,20 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'App',
+  data () {
+    return { restored: false }
+  },
+  mounted () {
+    this.$store.restored.then(() => {
+      this.restored = true
+    })
+  }
+}
+</script>
+
 <style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
