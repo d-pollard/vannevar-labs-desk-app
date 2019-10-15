@@ -1,23 +1,22 @@
 <template>
   <div class="desk-box">
-    <div class="desk-box-controls">
-      <template v-if="boxType === 'inbox'">
-        <ImageUploader :location="boxType" />
-      </template>
-      <template v-else>
-        <button>clear</button>
-      </template>
-    </div>
-    <div class="photo-stack">
-      <img v-for="(i, n) in items" :key="`${boxType}Image${n}`" :src="i.src" alt="box image" />
-    </div>
+  <div class="desk-box-controls">
+    <template v-if="boxType === 'inbox'">
+      <ImageUploader :location="boxType" />
+    </template>
+    <template v-else>
+      <button>clear</button>
+    </template>
   </div>
+  <DeskBoxPhotoStack :box-type="boxType" :items="items"/>
+</div>
 </template>
 
 <script>
 import ImageUploader from '@/components/ImageUploader'
+import DeskBoxPhotoStack from '@/components/DeskBoxPhotoStack'
 export default {
-  components: { ImageUploader },
+  components: { DeskBoxPhotoStack, ImageUploader },
   props: {
     type: {
       type: String,
@@ -51,12 +50,6 @@ export default {
     width: 220px;
   }
 
-  .photo-stack {
-    position: relative;
-    margin: auto;
-    width: 160px;
-    height: 160px;
-  }
   .photo-stack img {
     width: 160px;
     height: 160px;
