@@ -28,9 +28,9 @@ export default {
         const reader = new FileReader()
         reader.onload = f => {
           // noinspection JSUnresolvedVariable
-          newFiles.push({ location: this.location, src: f.target.result })
+          newFiles.push({ src: f.target.result })
           cnt++
-          if (cnt === e.target.files.length) this.$store.dispatch('files/add', newFiles)
+          if (cnt === e.target.files.length) this.$store.dispatch('files/add', { location: this.location, newFiles })
         }
         reader.readAsDataURL(e.target.files[i])
       }

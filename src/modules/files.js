@@ -1,23 +1,16 @@
 const state = {
-  list: [],
-  initialized: true
+  list: { inbox: [], outbox: [], desk: [] }
 }
 
 const mutations = {
-  addFile (state, { src, location }) {
-    state.list = [...state.list, { src, location }]
-  },
-  add (state, files) {
-    state.list = [...state.list, ...files]
+  add (state, { location, newFiles }) {
+    state.list[location] = [...newFiles, ...state.list[location]]
   }
 }
 
 const actions = {
-  addNewFile (context, { src, location }) {
-    context.commit('addFile', { src, location })
-  },
-  add (context, files) {
-    context.commit('add', files)
+  add (context, { newFiles, location }) {
+    context.commit('add', { newFiles, location })
   }
 }
 
