@@ -1,15 +1,15 @@
 <template>
-  <div class="desk-box">
-  <div class="desk-box-controls">
-    <template v-if="boxType === 'inbox'">
-      <ImageUploader :location="boxType" />
-    </template>
-    <template v-else>
-      <button>clear</button>
-    </template>
+  <div class="desk-box" @drop="drop">
+    <div class="desk-box-controls">
+      <template v-if="boxType === 'inbox'">
+        <ImageUploader :location="boxType" />
+      </template>
+      <template v-else>
+        <button @click="clear">clear</button>
+      </template>
+    </div>
+    <DeskBoxPhotoStack :box-type="boxType" :items="items"/>
   </div>
-  <DeskBoxPhotoStack :box-type="boxType" :items="items"/>
-</div>
 </template>
 
 <script>
@@ -36,7 +36,18 @@ export default {
   },
   name: 'DeskBox',
   methods: {
-
+    drop (e) {
+      e.preventDefault()
+      e.stopPropagation()
+      let { boxType: newLocation } = this
+      let { src, location: oldLocation, index: oldIndex } = JSON.parse(e.dataTransfer.getData('text'))
+      this.$store.dispatch('files/move', { oldLocation, newLocation, oldIndex, src })
+    },
+    clear () {
+      if (confirm(`Are you sure you want to drop all ${this.items.length} items in your ${this.boxType}?`)) {
+        this.$store.dispatch('files/clear', this.boxType)
+      }
+    }
   }
 }
 </script>
@@ -48,6 +59,7 @@ export default {
     border: 1px solid blue;
     display: inline-block;
     width: 220px;
+    z-index: 1000;
   }
 
   .desk-box-controls {

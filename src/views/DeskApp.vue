@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Desktop App</h3>
+    <h3>Minimalist Desktop App</h3>
     <desk />
   </div>
 </template>

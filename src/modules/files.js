@@ -5,12 +5,25 @@ const state = {
 const mutations = {
   add (state, { location, newFiles }) {
     state.list[location] = [...newFiles, ...state.list[location]]
+  },
+  move (state, { oldLocation, newLocation, oldIndex, src, x, y }) {
+    state.list[oldLocation] = state.list[oldLocation].filter((item, index) => index !== oldIndex)
+    state.list[newLocation] = [{ src, x, y }, ...state.list[newLocation]]
+  },
+  clear (state, location) {
+    state.list[location] = []
   }
 }
 
 const actions = {
   add (context, { newFiles, location }) {
     context.commit('add', { newFiles, location })
+  },
+  move (context, { oldLocation, newLocation, oldIndex, src, x, y }) {
+    context.commit('move', { oldLocation, newLocation, oldIndex, src, x, y })
+  },
+  clear (context, location) {
+    context.commit('clear', location)
   }
 }
 

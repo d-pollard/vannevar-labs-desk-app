@@ -1,11 +1,13 @@
 <template>
   <div class="photo-stack">
-    <img v-for="(i, n) in items" :key="`${boxType}Image${n}`" :src="i.src" alt="box image"/>
+    <DragImage v-for="(item, i) in items" :src="item.src" :location="boxType" :index="i" :key="`${boxType}-${i}`" />
   </div>
 </template>
 <script>
+import DragImage from '@/components/DragImage'
 export default {
   name: 'DeskBoxPhotoStack',
+  components: { DragImage },
   props: {
     boxType: {
       required: true,
