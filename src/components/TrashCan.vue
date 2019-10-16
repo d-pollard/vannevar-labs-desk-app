@@ -8,7 +8,7 @@
 export default {
   name: 'TrashCan',
   data () {
-    return { modalOpen: true, location: '', index: 0 }
+    return { modalOpen: true, location: '', id: '' }
   },
   methods: {
     deleteConfirmation () {
@@ -22,21 +22,21 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then(({ value }) => {
         if (value) {
-          const { index, location } = this
-          this.$store.dispatch('files/remove', { index, location })
+          const { id, location } = this
+          this.$store.dispatch('files/remove', { id, location })
           this.$swal('Deleted!', 'Your file has been deleted.', 'success')
         }
         this.location = ''
-        this.index = 0
+        this.id = ''
       })
     },
     dragover: e => e.preventDefault(),
     drop (e) {
       e.preventDefault()
       e.stopPropagation()
-      let { location, index } = JSON.parse(e.dataTransfer.getData('text'))
+      let { location, id } = JSON.parse(e.dataTransfer.getData('text'))
       this.location = location
-      this.index = index
+      this.id = id
       this.deleteConfirmation()
     }
   }

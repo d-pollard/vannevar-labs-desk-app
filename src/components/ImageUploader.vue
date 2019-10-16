@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import Hashids from 'hashids'
+const hashids = new Hashids()
 
 export default {
   props: {
@@ -27,7 +29,7 @@ export default {
       for (let i = 0; i < e.target.files.length; i++) {
         const reader = new FileReader()
         reader.onload = f => {
-          newFiles.push({ src: f.target.result })
+          newFiles.push({ src: f.target.result, id: hashids.encode(Date.now(), f.total) })
           cnt++
           if (cnt === e.target.files.length) this.$store.dispatch('files/add', { location: this.location, newFiles })
         }

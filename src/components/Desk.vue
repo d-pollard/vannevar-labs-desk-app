@@ -2,7 +2,7 @@
   <div @drop="drop" @dragover="dragover" class="desk">
     <DeskBox type="in"/>
     <DeskBox type="out" />
-    <DragImage v-for="(item, i) in items" :src="item.src" location="desk" :index="i" :key="`desk-${i}`" :style="styler(item, i)" />
+    <DragImage v-for="(item, i) in items" :src="item.src" location="desk" :id="item.id" :key="`desk-${item.id}`" :style="styler(item, i)" />
   </div>
 </template>
 
@@ -24,8 +24,8 @@ export default {
       e.preventDefault()
       e.stopPropagation()
       let { x, y } = e
-      let { src, location: oldLocation, index: oldIndex } = JSON.parse(e.dataTransfer.getData('text'))
-      this.$store.dispatch('files/move', { oldLocation, newLocation: 'desk', oldIndex, src, x, y })
+      let { src, location: oldLocation, id } = JSON.parse(e.dataTransfer.getData('text'))
+      this.$store.dispatch('files/move', { oldLocation, newLocation: 'desk', id, src, x, y })
     },
     styler (item, i) {
       return { position: 'absolute', left: `${item.x - 70}px`, top: `${item.y - 70}px`, zIndex: 100 - i }
@@ -38,7 +38,6 @@ export default {
   .desk {
     border: 1px solid #2c3e50;
     height: 60vh;
-    overflow: hidden;
     z-index: 10000;
   }
 </style>

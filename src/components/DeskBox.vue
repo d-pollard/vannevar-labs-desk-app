@@ -40,8 +40,8 @@ export default {
       e.preventDefault()
       e.stopPropagation()
       let { boxType: newLocation } = this
-      let { src, location: oldLocation, index: oldIndex } = JSON.parse(e.dataTransfer.getData('text'))
-      this.$store.dispatch('files/move', { oldLocation, newLocation, oldIndex, src })
+      let { src, location: oldLocation, id } = JSON.parse(e.dataTransfer.getData('text'))
+      this.$store.dispatch('files/move', { oldLocation, newLocation, id, src })
     },
     clear () {
       if (confirm(`Are you sure you want to drop all ${this.items.length} items in your ${this.boxType}?`)) {

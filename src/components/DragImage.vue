@@ -1,17 +1,54 @@
 <template>
-  <img @dragstart="dragstartHandler" draggable="true" :src="src" alt="draggable image"/>
+  <img :class="{ highlight }" @dragstart="dragstartHandler" @dragend="dragendHandler" draggable="true" :src="src" alt="draggable image"/>
 </template>
 
 <script>
 export default {
-  props: ['src', 'location', 'index'],
+  props: {
+    src: { required: true, type: String },
+    location: { required: true, type: String },
+    id: { required: true, type: String }
+  },
   name: 'DragImage',
+  data () {
+    return { dragImage: null, highlight: false }
+  },
+  beforeMount () {
+    this.dragImage = this.handleImage(this.src, Math.random() * 100)
+  },
+  beforeDestroy () {
+    this.dragImage.remove()
+  },
   methods: {
     dragstartHandler (e) {
-      let { src, location, index } = this
+      this.highlight = true
+      let { src, location, id, dragImage } = this
       e.dataTransfer.dropEffect = 'copy'
       e.dataTransfer.effectAllowed = 'all'
-      e.dataTransfer.setData('text/plain', JSON.stringify({ src, location, index }))
+      e.dataTransfer.setDragImage(dragImage, 80, 80)
+      e.dataTransfer.setData('text/plain', JSON.stringify({ src, location, id }))
+      // return false
+    },
+    dragendHandler () {
+      this.highlight = false
+    },
+    handleImage (src, r) {
+      const div = document.createElement('div')
+      div.style.width = '160px'
+      div.style.height = '160px'
+      div.style.position = 'fixed'
+      div.style.top = '-1000000px'
+      div.style.left = '-1000000px'
+      div.style.border = '1px solid red'
+      div.className = `element-${r}`
+
+      div.style.backgroundImage = `url(${src})`
+      div.style.backgroundSize = `cover`
+      div.style.backgroundRepeat = `no-repeat`
+      div.style.backgroundPosition = `center center`
+
+      document.body.appendChild(div)
+      return div
     }
   }
 }
@@ -27,5 +64,8 @@ export default {
   }
   img:active {
     cursor: grabbing;
+  }
+  .highlight {
+    border: 1px solid red;
   }
 </style>

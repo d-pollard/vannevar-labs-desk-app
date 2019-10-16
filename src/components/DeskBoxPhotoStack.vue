@@ -1,6 +1,6 @@
 <template>
   <div class="photo-stack">
-    <DragImage v-for="(item, i) in items" :src="item.src" :location="boxType" :index="i" :key="`${boxType}-${i}`" />
+    <DragImage v-for="item in items" :src="item.src" :location="boxType" :id="item.id" :key="`${boxType}-${item.id}`" />
   </div>
 </template>
 <script>
