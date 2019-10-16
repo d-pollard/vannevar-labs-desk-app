@@ -12,6 +12,9 @@ const mutations = {
   },
   clear (state, location) {
     state.list[location] = []
+  },
+  remove (state,  { location, index: oldIndex }) {
+    state.list[location] = state.list[location].filter((item, index) => index !== oldIndex)
   }
 }
 
@@ -24,6 +27,9 @@ const actions = {
   },
   clear (context, location) {
     context.commit('clear', location)
+  },
+  remove (context, { location, index }) {
+    context.commit('remove', { location, index })
   }
 }
 
