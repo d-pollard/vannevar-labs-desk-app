@@ -45,7 +45,7 @@ export default {
 
 <style scoped>
   .trash-can {
-    border: 1px solid cadetblue;
+    border: 1px solid red;
     margin-top: 10px;
   }
 </style>

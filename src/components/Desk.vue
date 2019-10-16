@@ -36,7 +36,7 @@ export default {
 
 <style scoped>
   .desk {
-    border: 1px solid orangered;
+    border: 1px solid #2c3e50;
     height: 60vh;
     overflow: hidden;
     z-index: 10000;

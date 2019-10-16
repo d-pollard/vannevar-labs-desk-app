@@ -13,7 +13,7 @@ const mutations = {
   clear (state, location) {
     state.list[location] = []
   },
-  remove (state,  { location, index: oldIndex }) {
+  remove (state, { location, index: oldIndex }) {
     state.list[location] = state.list[location].filter((item, index) => index !== oldIndex)
   }
 }

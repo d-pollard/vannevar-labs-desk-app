@@ -1,5 +1,5 @@
 <template>
-  <div class="desk-box" @drop="drop">
+  <div :class="`desk-box ${boxType}`" @drop="drop">
     <div class="desk-box-controls">
       <template v-if="boxType === 'inbox'">
         <ImageUploader :location="boxType" />
@@ -56,12 +56,23 @@ export default {
   .desk-box {
     position: relative;
     height: 220px;
-    border: 1px solid blue;
+    border-bottom: 1px solid #2c3e50;
     display: inline-block;
     width: 220px;
     z-index: 1000;
+    background: #42b983;
   }
-
+  .inbox {
+    float: left;
+    border-right: 1px solid #2c3e50;
+  }
+  .outbox {
+    float: right;
+    border-left: 1px solid #2c3e50;
+  }
+  .outbox:after {
+    clear: both;
+  }
   .desk-box-controls {
     margin-bottom: 10px;
   }

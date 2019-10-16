@@ -1,17 +1,12 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome to The Desk App"/>
+    <h1>Welcome to my minimalist desk app</h1>
+    <img style="height: 600px;width:auto;margin-top:-100px" src="../assets/desk.svg"  alt="Desk image"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
-  }
+  name: 'home'
 }
 </script>
