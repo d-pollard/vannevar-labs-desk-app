@@ -15,6 +15,7 @@
 <script>
 import ImageUploader from '@/components/ImageUploader'
 import DeskBoxPhotoStack from '@/components/DeskBoxPhotoStack'
+
 export default {
   components: { DeskBoxPhotoStack, ImageUploader },
   props: {
@@ -44,8 +45,20 @@ export default {
       this.$store.dispatch('files/move', { oldLocation, newLocation, id, src })
     },
     clear () {
-      if (confirm(`Are you sure you want to drop all ${this.items.length} items in your ${this.boxType}?`)) {
-        this.$store.dispatch('files/clear', this.boxType)
+      let pluralize = (cnt, word) => cnt > 1 ? `${cnt} ${word}s` : `${cnt} ${word}`
+      if (this.items.length) {
+        this.$swal({
+          target: document.body,
+          title: 'Are you sure?',
+          text: `You'll be removing ${pluralize(this.items.length, 'item')} from your ${this.boxType}!`,
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then(({ value }) => {
+          if (value) this.$store.dispatch('files/clear', this.boxType)
+        })
       }
     }
   }
