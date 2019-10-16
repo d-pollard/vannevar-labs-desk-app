@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Minimalist Desktop App</h3>
+    <h3>Minimalist Desk App</h3>
     <Desk />
     <TrashCan />
   </div>
