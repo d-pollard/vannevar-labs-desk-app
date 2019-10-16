@@ -19,15 +19,13 @@ export default {
     }
   },
   methods: {
+    dragover: e => e.preventDefault(),
     drop (e) {
       e.preventDefault()
       e.stopPropagation()
       let { x, y } = e
       let { src, location: oldLocation, index: oldIndex } = JSON.parse(e.dataTransfer.getData('text'))
       this.$store.dispatch('files/move', { oldLocation, newLocation: 'desk', oldIndex, src, x, y })
-    },
-    dragover (e) {
-      e.preventDefault()
     },
     styler (item, i) {
       return { position: 'absolute', left: `${item.x - 70}px`, top: `${item.y - 70}px`, zIndex: 100 - i }
@@ -40,5 +38,7 @@ export default {
   .desk {
     border: 1px solid orangered;
     height: 60vh;
+    overflow: hidden;
+    z-index: 10000;
   }
 </style>

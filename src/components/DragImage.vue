@@ -1,19 +1,9 @@
 <template>
-  <img
-    v-show="show"
-    @dragstart="e => dragstartHandler(e)"
-    draggable="true"
-    :src="src"
-    alt="draggable image"/>
+  <img @dragstart="dragstartHandler" draggable="true" :src="src" alt="draggable image"/>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      show: true
-    }
-  },
   props: ['src', 'location', 'index'],
   name: 'DragImage',
   methods: {
