@@ -2,7 +2,9 @@
   <div>
     <h3>Minimalist Desk App</h3>
     <Desk />
-    <TrashCan />
+    <div style="position: fixed">
+      <TrashCan />
+    </div>
   </div>
 </template>
 

@@ -13,6 +13,7 @@ export default {
   methods: {
     deleteConfirmation () {
       this.$swal({
+        target: document.body,
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
         type: 'warning',

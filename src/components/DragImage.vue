@@ -27,7 +27,7 @@ export default {
       e.dataTransfer.effectAllowed = 'all'
       e.dataTransfer.setDragImage(dragImage, 80, 80)
       e.dataTransfer.setData('text/plain', JSON.stringify({ src, location, id }))
-      // return false
+      return false
     },
     dragendHandler () {
       this.highlight = false
